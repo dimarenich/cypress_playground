@@ -1,36 +1,43 @@
 describe('Main menu', function () {
-  const username = 'xxx'
-  const password = 'xxx'
-
   context('cy.visit', () => {
-    // https://my-learning.w3schools.com/
+    // https://example.cypress.io
 
-    beforeEach(() => {
-      cy.visit('/', {
-        // auth: {
-        //   username, password,
-        // },
-      })
-      cy.get('input[name=email]').type(username)
-      cy.get('input[name=current-password]').type(password)
-      cy.get('form').submit()
-      cy.wait(5000)
-      cy.log('success login')
+    before(() => {
+      cy.visit('/', { })
     })
 
-    it('main menu contains all elements', () => {
+    it('main menu contains all items', () => {
       // Check persistent list of menus and links
-      cy.get('nav').contains('My learning').should('have.attr', 'href', 'https://my-learning.w3schools.com')
-      cy.get('nav').contains('Paid courses').should('have.attr', 'href', 'https://campus.w3schools.com/')
-      cy.get('nav').contains('Certificates').should('have.attr', 'href', 'https://my-learning.w3schools.com/certificates')
-      cy.get('nav').contains('Videos').should('have.attr', 'href', 'https://www.w3schools.com/videos/index.php')
-      cy.get('nav').contains('Spaces').should('have.attr', 'href', 'https://spaces.w3schools.com')
-      cy.get('nav').contains('Settings').should('have.attr', 'href', 'https://profile.w3schools.com/settings')
-      cy.get('nav').contains('Billing').should('have.attr', 'href', 'https://billing.w3schools.com')
-      cy.get('nav').contains('Blog').should('have.attr', 'href', 'https://campus.w3schools.com/blogs/blog')
-      cy.get('nav').contains('Community').should('have.attr', 'href', 'https://discord.gg/6Z7UaRbUQM')
-      cy.get('nav').contains('Log out')
-      cy.log('main menu contains all elements')
+      cy.get('.navbar-header .navbar-brand').contains('cypress.io').should('have.attr', 'href', '/')
+      cy.get('[id="navbar"] ul li .dropdown-toggle').contains('Commands').should('have.attr', 'href', '#')
+      cy.get('[id="navbar"] ul li a').contains('Utilities').should('have.attr', 'href', '/utilities')
+      cy.get('[id="navbar"] ul li a').contains('Cypress API').should('have.attr', 'href', '/cypress-api')
+      cy.get('[id="navbar"] ul li a').contains('GitHub').should('have.attr', 'href', 'https://github.com/cypress-io/cypress-example-kitchensink')
+      cy.log('test: main menu contains all items')
+    })
+    it('drop-down list "Commands" contains all sub-items', () => {
+      cy.get('[id="navbar"] ul li .dropdown-toggle .caret').click()
+      cy.get('[id="navbar"] ul li ul li').should('have.length', 17)
+      cy.get('[id="navbar"] ul li ul li a').contains('Querying').should('have.attr', 'href', '/commands/querying')
+      cy.get('[id="navbar"] ul li ul li a').contains('Traversal').should('have.attr', 'href', '/commands/traversal')
+      cy.get('[id="navbar"] ul li ul li a').contains('Actions').should('have.attr', 'href', '/commands/actions')
+      cy.get('[id="navbar"] ul li ul li a').contains('Window').should('have.attr', 'href', '/commands/window')
+      cy.get('[id="navbar"] ul li ul li a').contains('Querying').should('have.attr', 'href', '/commands/querying')
+      cy.get('[id="navbar"] ul li ul li a').contains('Viewport').should('have.attr', 'href', '/commands/viewport')
+      cy.get('[id="navbar"] ul li ul li a').contains('Location').should('have.attr', 'href', '/commands/location')
+      cy.get('[id="navbar"] ul li ul li a').contains('Navigation').should('have.attr', 'href', '/commands/navigation')
+      cy.get('[id="navbar"] ul li ul li a').contains('Assertions').should('have.attr', 'href', '/commands/assertions')
+      cy.get('[id="navbar"] ul li ul li a').contains('Misc').should('have.attr', 'href', '/commands/misc')
+      cy.get('[id="navbar"] ul li ul li a').contains('Connectors').should('have.attr', 'href', '/commands/connectors')
+      cy.get('[id="navbar"] ul li ul li a').contains('Aliasing').should('have.attr', 'href', '/commands/aliasing')
+      cy.get('[id="navbar"] ul li ul li a').contains('Waiting').should('have.attr', 'href', '/commands/waiting')
+      cy.get('[id="navbar"] ul li ul li a').contains('Network Requests').should('have.attr', 'href', '/commands/network-requests')
+      cy.get('[id="navbar"] ul li ul li a').contains('Files').should('have.attr', 'href', '/commands/files')
+      cy.get('[id="navbar"] ul li ul li a').contains('Local Storage').should('have.attr', 'href', '/commands/local-storage')
+      cy.get('[id="navbar"] ul li ul li a').contains('Cookies').should('have.attr', 'href', '/commands/cookies')
+      cy.get('[id="navbar"] ul li ul li a').contains('Spies, Stubs & Clocks').should('have.attr', 'href', '/commands/spies-stubs-clocks')
+      cy.get('[id="navbar"] ul li .dropdown-toggle').click()
+      cy.log('test: drop-down list "Commands" contains all sub-items')
     })
 
   })
