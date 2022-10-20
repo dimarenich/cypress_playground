@@ -16,29 +16,40 @@ describe('Main menu', function () {
       cy.log('test: main menu contains all items')
     })
     it('drop-down list "Commands" contains all sub-items', () => {
-      cy.get('[id="navbar"] ul li .dropdown-toggle .caret').click()
-      cy.get('[id="navbar"] ul li ul li').should('have.length', 17)
-      cy.get('[id="navbar"] ul li ul li a').contains('Querying').should('have.attr', 'href', '/commands/querying')
-      cy.get('[id="navbar"] ul li ul li a').contains('Traversal').should('have.attr', 'href', '/commands/traversal')
-      cy.get('[id="navbar"] ul li ul li a').contains('Actions').should('have.attr', 'href', '/commands/actions')
-      cy.get('[id="navbar"] ul li ul li a').contains('Window').should('have.attr', 'href', '/commands/window')
-      cy.get('[id="navbar"] ul li ul li a').contains('Querying').should('have.attr', 'href', '/commands/querying')
-      cy.get('[id="navbar"] ul li ul li a').contains('Viewport').should('have.attr', 'href', '/commands/viewport')
-      cy.get('[id="navbar"] ul li ul li a').contains('Location').should('have.attr', 'href', '/commands/location')
-      cy.get('[id="navbar"] ul li ul li a').contains('Navigation').should('have.attr', 'href', '/commands/navigation')
-      cy.get('[id="navbar"] ul li ul li a').contains('Assertions').should('have.attr', 'href', '/commands/assertions')
-      cy.get('[id="navbar"] ul li ul li a').contains('Misc').should('have.attr', 'href', '/commands/misc')
-      cy.get('[id="navbar"] ul li ul li a').contains('Connectors').should('have.attr', 'href', '/commands/connectors')
-      cy.get('[id="navbar"] ul li ul li a').contains('Aliasing').should('have.attr', 'href', '/commands/aliasing')
-      cy.get('[id="navbar"] ul li ul li a').contains('Waiting').should('have.attr', 'href', '/commands/waiting')
-      cy.get('[id="navbar"] ul li ul li a').contains('Network Requests').should('have.attr', 'href', '/commands/network-requests')
-      cy.get('[id="navbar"] ul li ul li a').contains('Files').should('have.attr', 'href', '/commands/files')
-      cy.get('[id="navbar"] ul li ul li a').contains('Local Storage').should('have.attr', 'href', '/commands/local-storage')
-      cy.get('[id="navbar"] ul li ul li a').contains('Cookies').should('have.attr', 'href', '/commands/cookies')
-      cy.get('[id="navbar"] ul li ul li a').contains('Spies, Stubs & Clocks').should('have.attr', 'href', '/commands/spies-stubs-clocks')
+      const dropdown_sub_items = {
+        'Querying': '/commands/querying',
+        'Traversal': '/commands/traversal',
+        'Actions': '/commands/actions',
+        'Window': '/commands/window',
+        'Viewport': '/commands/viewport',
+        'Location': '/commands/location',
+        'Navigation': '/commands/navigation',
+        'Assertions': '/commands/assertions',
+        'Misc': '/commands/misc',
+        'Connectors': '/commands/connectors',
+        'Aliasing': '/commands/aliasing',
+        'Waiting': '/commands/waiting',
+        'Network Requests': '/commands/network-requests',
+        'Files': '/commands/files',
+        'Local Storage': '/commands/local-storage',
+        'Cookies': '/commands/cookies',
+        'Spies, Stubs & Clocks': '/commands/spies-stubs-clocks'
+      };
+      let dropdown_list = '[id="navbar"] ul li ul li'
+      let dropdown_menu = '[id="navbar"] ul li ul li a'
+      let dropdown_caret ='[id="navbar"] ul li .dropdown-toggle .caret'
+      cy.get(dropdown_caret).click()
+      cy.get(dropdown_list).should('have.length', 17)
+      cy.get(dropdown_menu).within(($dropdown_menu) => {
+        const keys = Object.keys(dropdown_sub_items);
+        keys.forEach((key, index) => {
+          cy.contains(`${key}`).should('have.attr', 'href', `${dropdown_sub_items[key]}`)
+        });
+      })
+      cy.get(dropdown_menu).first().should('have.text', 'Querying')
+      cy.get(dropdown_menu).last().should('have.text', 'Spies, Stubs & Clocks')
       cy.get('[id="navbar"] ul li .dropdown-toggle').click()
       cy.log('test: drop-down list "Commands" contains all sub-items')
     })
-
   })
 })
