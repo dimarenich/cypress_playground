@@ -1,5 +1,5 @@
 describe('Main menu', function () {
-  context('cy.visit', () => {
+  context('Default resolution', () => {
     // https://example.cypress.io
 
     before(() => {
@@ -9,7 +9,7 @@ describe('Main menu', function () {
     it('main menu contains all items', () => {
       // Check persistent list of menus and links
       cy.get('.navbar-header .navbar-brand').contains('cypress.io').should('have.attr', 'href', '/')
-      cy.get('[id="navbar"] ul li .dropdown-toggle').contains('Commands').should('have.attr', 'href', '#')
+      cy.get('[id="navbar"] ul li .dropdown-toggle').contains('Commands ').should('have.attr', 'href', '#')
       cy.get('[id="navbar"] ul li a').contains('Utilities').should('have.attr', 'href', '/utilities')
       cy.get('[id="navbar"] ul li a').contains('Cypress API').should('have.attr', 'href', '/cypress-api')
       cy.get('[id="navbar"] ul li a').contains('GitHub').should('have.attr', 'href', 'https://github.com/cypress-io/cypress-example-kitchensink')
@@ -48,6 +48,7 @@ describe('Main menu', function () {
       })
       cy.get(dropdown_menu).first().should('have.text', 'Querying')
       cy.get(dropdown_menu).last().should('have.text', 'Spies, Stubs & Clocks')
+      cy.get('.dropdown-menu').screenshot('dropdown-menu_' + Date.now())
       cy.get('[id="navbar"] ul li .dropdown-toggle').click()
       cy.log('test: drop-down list "Commands" contains all sub-items')
     })
