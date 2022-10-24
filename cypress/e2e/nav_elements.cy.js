@@ -48,7 +48,7 @@ describe('Main menu', function () {
       })
       cy.get(dropdown_menu).first().should('have.text', 'Querying')
       cy.get(dropdown_menu).last().should('have.text', 'Spies, Stubs & Clocks')
-      cy.get('.dropdown-menu').screenshot('dropdown-menu_' + Date.now())
+      // cy.get('.dropdown-menu').screenshot('dropdown-menu_' + Date.now())
       cy.get('[id="navbar"] ul li .dropdown-toggle').click()
       cy.log('test: drop-down list "Commands" contains all sub-items')
     })
